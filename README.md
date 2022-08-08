@@ -15,6 +15,6 @@ Copy standardoptions.txt from your config folder and paste it into this folder. 
 
 Double click run.bat to run the program and type in the settings file you want to use (for example, rsg.txt). The new settings will be applied on your next reset without relaunching your instances. If the file you type is not located in this folder it will not work.
 
-Make sure you download python and restart your computer before running the program if you haven't already.
+Make sure you download python and restart your computer before running the program if you haven't already. Also, it only works on windows.
 
 Credits to macusmacus for the idea to make this :d
