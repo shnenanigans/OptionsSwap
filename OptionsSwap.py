@@ -26,7 +26,7 @@ def create_group_widget():
     labelframe = tk.Frame(frame2, bg="#fee5b5", height=30, width=150)
     listframe = tk.Frame(frame2, bg="#fee5b5", height=170, width=125)
     grouplist = instgroups.find_groups(mcpath)
-    groups = tk.Listbox(listframe, selectmode = "single", height=len(grouplist))
+    groups = tk.Listbox(listframe, selectmode = "single", height=len(grouplist), bg="#FFF3DC")
     if len(grouplist)>10:
         groups.config(height=10)
     else:
@@ -47,7 +47,7 @@ def create_instance_widget():
     labelframe = tk.Frame(frame2, bg="#fee5b5", height=30, width=150)
     listframe = tk.Frame(frame2, bg="#fee5b5", height=170, width=125)
     instlist = instgroups.find_instances(mcpath)
-    instances = tk.Listbox(listframe, selectmode = "multiple", height=len(instlist))
+    instances = tk.Listbox(listframe, selectmode = "multiple", height=len(instlist), bg="#FFF3DC")
     if len(instlist)>10:
         instances.config(height=10)
     else:
@@ -91,18 +91,23 @@ def swap(insts):
         configs = get_configs(insts)
         for file in txt_list.curselection():
             options = txt_list.get(file)
-        options_path = os.getcwd() + "\\data\\" + options
+        options_path = os.getcwd() + "\\data\\" + options + ".txt"
         for i in range(len(configs)):
             with open(configs[i], "w+") as f:
                 f.write(options_path)
     except Exception as e:
-        messagebox.showerror(title=None, message="Something went wrong.")
+        messagebox.showerror(title=None, message="Make sure standardoptions.txt exists in this instance's config folder.")
         print(e)
     else:
         messagebox.showinfo(title=None, message="Success!")
 
-with open("mcpath.txt") as f:
-    mcpath = f.read()
+try:
+    with open("mcpath.txt") as f:
+        mcpath = f.read()
+        if "\\user\\" in mcpath:
+            messagebox.showerror(message="Make sure mcpath.txt contains the path to your MultiMC path.")
+except FileNotFoundError:
+    messagebox.showerror(message="Create a file called mcpath.txt and put the path to your MultiMC in it.")
 
 txts = get_txt()
 root = tk.Tk()
@@ -118,7 +123,7 @@ frame3.place(x=350, y=0)
 
 txt_label = tk.Label(frame1, text="Select options file", bg="#fee5b5")
 txtlistframe = tk.Frame(frame1, bg="#fee5b5")
-txt_list = tk.Listbox(txtlistframe, selectmode="single", height=len(txts), exportselection=0)
+txt_list = tk.Listbox(txtlistframe, selectmode="single", height=len(txts), exportselection=0, bg="#FFF3DC")
 if len(txts)>20:
     txt_list.config(height=20)
 else:
